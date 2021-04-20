@@ -133,6 +133,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModelInput.cs" />
+    <Compile Include="ModelOutput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -14,6 +14,7 @@
         <TextBox x:Name="WeightTextBox" HorizontalAlignment="Left" Height="30" Margin="54,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="70" TextChanged="WeightTextBox_TextChanged"/>
         <TextBlock x:Name="SexTextBlock" HorizontalAlignment="Left" Margin="54,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="30" Width="100"/>
         <Label Content="Пол" HorizontalAlignment="Left" Margin="10,104,0,0" VerticalAlignment="Top" Height="30"/>
+        <TextBlock x:Name="EvaluateTextBlock" Margin="90,10,9.6,0" TextWrapping="Wrap" Text="Точность" VerticalAlignment="Top" Height="19"/>
 
     </Grid>
 </Window>
