@@ -21,7 +21,7 @@ namespace Predictor
 
         private void LoadScriptButton_Click(object sender, RoutedEventArgs e)
         {
-            var context = new MLContext(1234);
+            var context = new MLContext(12345);
             ITransformer model = null;
 
             OpenFileDialog ofd = new OpenFileDialog();
