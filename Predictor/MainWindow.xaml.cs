@@ -61,8 +61,9 @@ namespace Predictor
                 var pipeline = context.Transforms.Concatenate("Features", "year", "quarter", "pop_density", "men_quan", "women_quan", "rate_unemp", "psych_clinic", "drug_clinic", "family_incom", "child_homeless", "quan_conviction", "quan_education", "cof_crime", "quan_migrant", "quan_gun")
                                       .Append(context.Transforms.NormalizeMinMax("Features", "Features"))
                                       .AppendCacheCheckpoint(context)
+                                     
                     
-                                      .Append(context.Regression.Trainers.LbfgsPoissonRegression("crime_count", "Features", historySize: 500));
+                                      .Append(context.Regression.Trainers.LbfgsPoissonRegression("crime_count", "Features"));
 
                 model = pipeline.Fit(split.TrainSet);
 
