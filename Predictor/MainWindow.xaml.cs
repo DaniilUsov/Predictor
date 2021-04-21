@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using Microsoft.ML;
 using Microsoft.ML.Data;
 
@@ -43,6 +44,7 @@ namespace Predictor
         {
             var context = new MLContext(1234);
             ITransformer model = null;
+            IDataView data = null;
 
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter =
@@ -54,7 +56,7 @@ namespace Predictor
             if (ofd.FileName.EndsWith(".csv"))
             {
                 // Загрузка базы
-                var data = context.Data.LoadFromTextFile<ModelInput>(ofd.FileName, hasHeader: true, separatorChar: ';');
+                data = context.Data.LoadFromTextFile<ModelInput>(ofd.FileName, hasHeader: true, separatorChar: ';');
                 // Переработка
                 var split = context.Data.TrainTestSplit(data, testFraction: 0.2);
 
@@ -81,7 +83,20 @@ namespace Predictor
             else if (ofd.FileName.EndsWith(".zip"))
             {
                 model = context.Model.Load(ofd.FileName, out _);
+                
             }
+
+            chart.ChartAreas.Add(new ChartArea("Default"));
+
+            // Добавим линию, и назначим ее в ранее созданную область "Default"
+            chart.Series.Add(new Series("Series1"));
+            chart.Series["Series1"].ChartArea = "Default";
+            chart.Series["Series1"].ChartType = SeriesChartType.Line;
+
+            // добавим данные линии
+            float[] axisXData = data.GetColumn<float>("year").ToArray();
+            float[] axisYData = data.GetColumn<float>("crime_count").ToArray();
+            chart.Series["Series1"].Points.DataBindXY(axisXData, axisYData);
 
             // Создание предсказателя
             predictor = context.Model.CreatePredictionEngine<ModelInput, ModelOutput>(model);
