@@ -55,14 +55,13 @@ namespace Predictor
 
                 IDataView newData = model.Transform(data);
 
-                for (int year = 0; year < 50; year++)
+                for (int year = 2020; year < 2050; year++)
                 {
                     for (int quarter = 0; quarter < 4; quarter++)
                     {
-                        newData.GetRowCursorSet(ColumnNames.YEAR)
-                        newData.GetColumn<float>(ColumnNames.YEAR).ToList().Add(year);
-                        newData.GetColumn<float>(ColumnNames.QUARTER).ToList().Add(quarter);
-                        newData.GetColumn<float>(ColumnNames.FACTORS[i]).ToList().Add(engine.Predict(new ModelInput() { Year = year, Quarter = quarter}).Score);
+                        newData.GetColumn<float>(ColumnNames.YEAR).Prepend(year);
+                        newData.GetColumn<float>(ColumnNames.QUARTER).Prepend(quarter);
+                        newData.GetColumn<float>(ColumnNames.FACTORS[i]).Prepend(engine.Predict(new ModelInput() { Year = year, Quarter = quarter }).Score);
                     }
                 }
 

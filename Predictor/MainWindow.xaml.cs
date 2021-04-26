@@ -49,7 +49,7 @@ namespace Predictor
 
             if (ofd.FileName.EndsWith(".csv"))
             {
-                predictor.Generate(ofd.FileName);
+                predictor.GenerateModel(ofd.FileName);
 
                 EvaluateTextBlock.Text = "Точность: "+ predictor.GetAccuracy();
                 // Построение графика
