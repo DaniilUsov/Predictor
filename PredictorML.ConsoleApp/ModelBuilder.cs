@@ -47,7 +47,7 @@ namespace PredictorML.ConsoleApp
             // Data process configuration with pipeline data transformations 
             var dataProcessPipeline = mlContext.Transforms.Concatenate("Features", new[] { "year", "quarter", "pop_density", "men_quan", "women_quan", "rate_unemp", "psych_clinic", "drug_clinic", "family_incom", "child_homeless", "quan_conviction", "quan_education", "cof_crime", "quan_migrant", "quan_gun" });
             // Set the training algorithm 
-            var trainer = mlContext.Regression.Trainers.FastTree(new FastTreeRegressionTrainer.Options() { NumberOfLeaves = 14, MinimumExampleCountPerLeaf = 1, NumberOfTrees = 500, LearningRate = 0.3049894f, Shrinkage = 0.2992288f, LabelColumnName = "crime_count", FeatureColumnName = "Features" });
+            var trainer = mlContext.Regression.Trainers.FastTreeTweedie(new FastTreeTweedieTrainer.Options() { NumberOfLeaves = 28, MinimumExampleCountPerLeaf = 1, NumberOfTrees = 100, LearningRate = 0.1246114f, Shrinkage = 1.860752f, LabelColumnName = "crime_count", FeatureColumnName = "Features" });
 
             var trainingPipeline = dataProcessPipeline.Append(trainer);
 

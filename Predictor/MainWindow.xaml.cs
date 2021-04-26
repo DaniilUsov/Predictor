@@ -5,6 +5,8 @@ using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using Microsoft.ML;
 using Microsoft.ML.Data;
+using Microsoft.ML.Trainers;
+using Microsoft.ML.Trainers.FastTree;
 
 namespace Predictor
 {
@@ -13,117 +15,68 @@ namespace Predictor
     /// </summary>
     public partial class MainWindow : Window
     {
-        ModelInput sampleData = new ModelInput()
-        {
-            Year = 2010,
-            Quarter = 1,
-            Pop_density = 142.9F,
-            Men_quan = 65.734F,
-            Women_quan = 77.166F,
-            Rate_unemp = 3.061938F,
-            Psych_clinic = 1232F,
-            Drug_clinic = 1074F,
-            Family_incom = 0.22F,
-            Child_homeless = 0.0032F,
-            Quan_conviction = 0.014F,
-            Quan_education = 0.361F,
-            Cof_crime = 0.13F,
-            Quan_migrant = 254089F,
-            Quan_gun = 252F,
-        };
-        private PredictionEngine<ModelInput, ModelOutput> predictor;
+        private ModelInput sampleData = new ModelInput();
+        private MyPredictor predictor = new MyPredictor();
 
         public MainWindow()
         {
             InitializeComponent();
-            LenghtTextBox.Text = sampleData.Pop_density.ToString();
-            WeightTextBox.Text = sampleData.Quan_migrant.ToString();
+
+            YearTB.DataContext = sampleData;
+            QuarterTB.DataContext = sampleData;
+            PopulationTB.DataContext = sampleData;
+            MenTB.DataContext = sampleData;
+            WomenTB.DataContext = sampleData;
+            UnempTB.DataContext = sampleData;
+            PsychTB.DataContext = sampleData;
+            DrugTB.DataContext = sampleData;
+            IncomTB.DataContext = sampleData;
+            ChildHomelessTB.DataContext = sampleData;
+            ConvintionTB.DataContext = sampleData;
+            EducationTB.DataContext = sampleData;
+            CofCrimeTB.DataContext = sampleData;
+            MigrantTB.DataContext = sampleData;
+            GunTB.DataContext = sampleData;
         }
 
-        private void LoadScriptButton_Click(object sender, RoutedEventArgs e)
+        private void LoadButton_Click(object sender, RoutedEventArgs e)
         {
-            var context = new MLContext(1234);
-            ITransformer model = null;
-            IDataView data = null;
-
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter =
-                    "Database|*.csv|" +
-                    "Model|*.zip";
+            ofd.Filter = "Database|*.csv|" +
+                         "Model|*.zip";
             
             if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.Cancel) return;
 
             if (ofd.FileName.EndsWith(".csv"))
             {
-                // Загрузка базы
-                data = context.Data.LoadFromTextFile<ModelInput>(ofd.FileName, hasHeader: true, separatorChar: ';');
-                // Переработка
-                var split = context.Data.TrainTestSplit(data, testFraction: 0.2);
+                predictor.Generate(ofd.FileName);
 
-                var pipeline = context.Transforms.Concatenate("Features", "year", "quarter", "pop_density", "men_quan", "women_quan", "rate_unemp", "psych_clinic", "drug_clinic", "family_incom", "child_homeless", "quan_conviction", "quan_education", "cof_crime", "quan_migrant", "quan_gun")
-                                      .Append(context.Transforms.NormalizeMinMax("Features", "Features"))
-                                      .AppendCacheCheckpoint(context)
-                                     
-                    
-                                      .Append(context.Regression.Trainers.LbfgsPoissonRegression("crime_count", "Features"));
-
-                model = pipeline.Fit(split.TrainSet);
-
-                var predictions = model.Transform(split.TestSet);
-
-                var metrics = context.Regression.Evaluate(predictions, "crime_count");
-
-                EvaluateTextBlock.Text =
-                    "RSquared: " + metrics.RSquared +
-                    "Loss: " + metrics.LossFunction +
-                    "Squared error" + metrics.MeanSquaredError;
-
-                context.Model.Save(model, data.Schema, ofd.FileName.Replace(".csv", ".zip"));
+                EvaluateTextBlock.Text = "Точность: "+ predictor.GetAccuracy();
+                // Построение графика
+                float[] years = predictor.Data.GetColumn<float>(ColumnNames.YEAR).ToArray();
+                float[] quarter = predictor.Data.GetColumn<float>(ColumnNames.QUARTER).ToArray();
+                string[] axisXData = new string[years.Length];
+                
+                for (int i = 0; i < years.Length; i++)
+                {
+                    axisXData[i] = years[i].ToString() + "/" + quarter[i].ToString();
+                }
+                
+                float[] axisYData = predictor.Data.GetColumn<float>(ColumnNames.CRIMES_COUNT).ToArray();
+                Chart.Series[0].Points.DataBindXY(axisXData, axisYData);
+                Chart.ChartAreas[0].AxisX.IntervalAutoMode = IntervalAutoMode.VariableCount;
+                Chart.ChartAreas[0].AxisX.Interval = 1;
+                Chart.ChartAreas[0].AxisY.Interval = 100;
             }
             else if (ofd.FileName.EndsWith(".zip"))
             {
-                model = context.Model.Load(ofd.FileName, out _);
-                
+                predictor.UploadModel(ofd.FileName);
             }
-
-            chart.ChartAreas.Add(new ChartArea("Default"));
-
-            // Добавим линию, и назначим ее в ранее созданную область "Default"
-            chart.Series.Add(new Series("Series1"));
-            chart.Series["Series1"].ChartArea = "Default";
-            chart.Series["Series1"].ChartType = SeriesChartType.Line;
-
-            // добавим данные линии
-            float[] axisXData = data.GetColumn<float>("year").ToArray();
-            float[] axisYData = data.GetColumn<float>("crime_count").ToArray();
-            chart.Series["Series1"].Points.DataBindXY(axisXData, axisYData);
-
-            // Создание предсказателя
-            predictor = context.Model.CreatePredictionEngine<ModelInput, ModelOutput>(model);
-
         }
 
-        private void Predict()
+        private void PredictButton_Click(object sender, RoutedEventArgs e)
         {
-            var prediction = predictor.Predict(sampleData);
-
-            SexTextBlock.Text = prediction.Score.ToString();
-        }
-
-        private void LenghtTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            if (predictor == null || LenghtTextBox.Text.Length == 0) return;
-
-            sampleData.Pop_density = float.Parse(LenghtTextBox.Text);
-            Predict();
-        }
-
-        private void WeightTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            if (predictor == null || WeightTextBox.Text.Length == 0) return;
-
-            sampleData.Quan_migrant = float.Parse(WeightTextBox.Text);
-            Predict();
+            CrimeTB.Text = predictor.Predict(sampleData).Score.ToString("0.000");
         }
     }
 }

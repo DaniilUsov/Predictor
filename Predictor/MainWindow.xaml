@@ -6,20 +6,60 @@
         xmlns:local="clr-namespace:Predictor"
         xmlns:dvc="clr-namespace:System.Windows.Forms.DataVisualization.Charting;assembly=System.Windows.Forms.DataVisualization"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" WindowState="Maximized" WindowStartupLocation="CenterScreen" d:DesignWidth="1200" d:DesignHeight="791.2" MinWidth="1200" MinHeight="800">
     <Grid>
-        <Button x:Name="LoadScriptButton" Content="Загрузить" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Click="LoadScriptButton_Click"/>
-        <TextBox x:Name="LenghtTextBox" HorizontalAlignment="Left" Height="30" Margin="143,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="170" TextChanged="LenghtTextBox_TextChanged"/>
-        <TextBlock HorizontalAlignment="Left" Margin="10,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="30"><Run Text="Население"/><LineBreak/><Run/></TextBlock>
-        <Label Content="Кол-во мигрантов" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top" Height="30"/>
-        <TextBox x:Name="WeightTextBox" HorizontalAlignment="Left" Height="30" Margin="143,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="70" TextChanged="WeightTextBox_TextChanged"/>
-        <TextBlock x:Name="SexTextBlock" HorizontalAlignment="Left" Margin="143,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="30" Width="100"/>
-        <Label Content="Кол-во преступлений" HorizontalAlignment="Left" Margin="10,104,0,0" VerticalAlignment="Top" Height="30"/>
-        <TextBlock x:Name="EvaluateTextBlock" Margin="90,10,9.6,0" TextWrapping="Wrap" Text="Точность" VerticalAlignment="Top" Height="19"/>
-        <StackPanel Margin="0,134,-0.4,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="LoadButton" Content="Загрузить базу" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="96" Click="LoadButton_Click" Height="30"/>
+        <Label Content="Кол-во мужчин, млн" HorizontalAlignment="Left" Margin="10,138,0,0" VerticalAlignment="Top" Height="25"/>
+        <TextBlock x:Name="CrimeTB" HorizontalAlignment="Left" Margin="226,0,0,9.6" TextWrapping="Wrap" Width="97" Height="30" VerticalAlignment="Bottom"/>
+        <Label Content="Кол-во преступлений:" HorizontalAlignment="Left" Margin="90,0,0,9.8" Height="30" VerticalAlignment="Bottom"/>
+        <TextBlock x:Name="EvaluateTextBlock" Margin="111,10,979.6,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="30"/>
+        <Grid Margin="341,10,10,9.8" VerticalAlignment="Bottom" Height="500">
             <WindowsFormsHost>
-                <dvc:Chart x:Name="chart" />
+                <dvc:Chart x:Name="Chart" Text="Преступность">
+                    <dvc:Chart.Legends>
+                        <dvc:Legend Name="Crime"/>
+                    </dvc:Chart.Legends>
+                    <dvc:Chart.ChartAreas>
+                        <dvc:ChartArea Name="Default"/>
+                    </dvc:Chart.ChartAreas>
+                    <dvc:Chart.Series>
+                        <dvc:Series ChartArea="Default" ChartType="Line" BorderWidth="5" LegendText="Количество\nпреступлений" Legend="Crime" MarkerStyle="Square" MarkerSize="8" Label="" IsValueShownAsLabel="True"/>
+                    </dvc:Chart.Series>
+                </dvc:Chart>
             </WindowsFormsHost>
-        </StackPanel>
+        </Grid>
+        <Label Content="Население, млн" HorizontalAlignment="Left" Margin="10,107,0,0" VerticalAlignment="Top"/>
+        <Label Content="Год" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top"/>
+        <Label Content="Квартал" HorizontalAlignment="Left" Margin="10,76,0,0" VerticalAlignment="Top"/>
+        <Label Content="Кол-во женщин, млн" HorizontalAlignment="Left" Margin="10,168,0,0" VerticalAlignment="Top" Height="25"/>
+        <Label Content="Уровень безработицы,&#xD;&#xA;млн" HorizontalAlignment="Left" Margin="10,198,0,0" VerticalAlignment="Top" Height="40"/>
+        <Label Content="Кол-во состоящих на&#xD;&#xA;учете в нарко диспансере" HorizontalAlignment="Left" Margin="10,292,0,0" VerticalAlignment="Top" Height="40"/>
+        <Label Content="Процент неполных семей" HorizontalAlignment="Left" Margin="10,337,0,0" VerticalAlignment="Top"/>
+        <Label Content="Процент беспризорных&#xD;&#xA;детей" HorizontalAlignment="Left" Margin="10,368,0,0" VerticalAlignment="Top" Height="40"/>
+        <Label Content="Процент людей с&#xD;&#xA;судимостью" HorizontalAlignment="Left" Margin="10,413,0,0" VerticalAlignment="Top" Height="40"/>
+        <Label Content="Процент людей с&#xA;высшим образованием" HorizontalAlignment="Left" Margin="10,458,0,0" VerticalAlignment="Top" Height="40"/>
+        <Label Content="Коэф. раскрываемости&#xD;&#xA;преступлений" HorizontalAlignment="Left" Margin="10,503,0,0" VerticalAlignment="Top" Height="40"/>
+        <Label Content="Кол-во мигрантов" HorizontalAlignment="Left" Margin="10,548,0,0" VerticalAlignment="Top" Height="25"/>
+        <Label Content="Кол-во зарегистрированного&#xD;&#xA;оружия" HorizontalAlignment="Left" Margin="10,578,0,0" VerticalAlignment="Top" Height="40"/>
+        <TextBox x:Name="GunTB" HorizontalAlignment="Left" Height="40" Margin="186,578,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding GunCount, Mode=TwoWay}"/>
+        <TextBox x:Name="MigrantTB" HorizontalAlignment="Left" Height="25" Margin="186,548,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding MigrantPopul, Mode=TwoWay}"/>
+        <TextBox x:Name="CofCrimeTB" HorizontalAlignment="Left" Height="40" Margin="186,503,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding CrimeCOF, Mode=TwoWay}"/>
+        <TextBox x:Name="EducationTB" HorizontalAlignment="Left" Height="40" Margin="186,458,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding EducatedPopul, Mode=TwoWay}"/>
+        <TextBox x:Name="ConvintionTB" HorizontalAlignment="Left" Height="40" Margin="186,413,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding ConvictionPopul, Mode=TwoWay}"/>
+        <TextBox x:Name="ChildHomelessTB" HorizontalAlignment="Left" Height="40" Margin="186,368,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding HomelessChildrensPopul, Mode=TwoWay}"/>
+        <TextBox x:Name="IncomTB" HorizontalAlignment="Left" Height="25" Margin="186,337,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding NotFullFamilies, Mode=TwoWay}"/>
+        <TextBox x:Name="WomenTB" HorizontalAlignment="Left" Height="25" Margin="186,168,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding WomenPopul, Mode=TwoWay}"/>
+        <TextBox x:Name="DrugTB" HorizontalAlignment="Left" Height="40" Margin="186,292,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding DrugPopul, Mode=TwoWay}"/>
+        <TextBox x:Name="UnempTB" HorizontalAlignment="Left" Height="40" Margin="186,198,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding RateUnemployment, Mode=TwoWay}"/>
+        <TextBox x:Name="MenTB" HorizontalAlignment="Left" Height="25" Margin="186,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding MenPopul, Mode=TwoWay}"/>
+        <TextBox x:Name="PopulationTB" HorizontalAlignment="Left" Height="25" Margin="186,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding Population, Mode=TwoWay}"/>
+        <TextBox x:Name="QuarterTB" HorizontalAlignment="Left" Height="25" Margin="186,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding Quarter, Mode=TwoWay}"/>
+        <TextBox x:Name="YearTB" HorizontalAlignment="Left" Height="25" Margin="186,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding Year, Mode=TwoWay}"/>
+        <Button x:Name="PredictButton" Content="Расчитать" HorizontalAlignment="Left" Margin="10,0,0,9.6" Width="75" Height="38" VerticalAlignment="Bottom" Click="PredictButton_Click"/>
+        <Label Content="Кол-во состоящих на&#xA;учете в псих диспансере" HorizontalAlignment="Left" Margin="10,247,0,0" VerticalAlignment="Top" Height="40"/>
+        <TextBox x:Name="PsychTB" HorizontalAlignment="Left" Height="40" Margin="186,247,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding PsychPopul, Mode=TwoWay}"/>
     </Grid>
 </Window>

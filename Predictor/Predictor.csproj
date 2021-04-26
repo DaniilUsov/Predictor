@@ -129,6 +129,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ColumnNames.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -137,6 +138,7 @@
   <ItemGroup>
     <Compile Include="ModelInput.cs" />
     <Compile Include="ModelOutput.cs" />
+    <Compile Include="MyPredictor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

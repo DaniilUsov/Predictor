@@ -4,68 +4,68 @@ namespace Predictor
 {
     public class ModelInput
     {
-        [ColumnName("year"), LoadColumn(0)]
+        [ColumnName(ColumnNames.YEAR), LoadColumn(0)]
         public float Year { get; set; }
 
 
-        [ColumnName("quarter"), LoadColumn(1)]
+        [ColumnName(ColumnNames.QUARTER), LoadColumn(1)]
         public float Quarter { get; set; }
 
 
-        [ColumnName("pop_density"), LoadColumn(2)]
-        public float Pop_density { get; set; }
+        [ColumnName(ColumnNames.POPULATION), LoadColumn(2)]
+        public float Population { get; set; }
 
 
-        [ColumnName("men_quan"), LoadColumn(3)]
-        public float Men_quan { get; set; }
+        [ColumnName(ColumnNames.MEN_POPUL), LoadColumn(3)]
+        public float MenPopul { get; set; }
 
 
-        [ColumnName("women_quan"), LoadColumn(4)]
-        public float Women_quan { get; set; }
+        [ColumnName(ColumnNames.WOMEN_POPUL), LoadColumn(4)]
+        public float WomenPopul { get; set; }
 
 
-        [ColumnName("rate_unemp"), LoadColumn(5)]
-        public float Rate_unemp { get; set; }
+        [ColumnName(ColumnNames.RATE_UNMPLOYMENT), LoadColumn(5)]
+        public float RateUnemployment { get; set; }
 
 
-        [ColumnName("psych_clinic"), LoadColumn(6)]
-        public float Psych_clinic { get; set; }
+        [ColumnName(ColumnNames.PSYCH_POPUL), LoadColumn(6)]
+        public float PsychPopul { get; set; }
 
 
-        [ColumnName("drug_clinic"), LoadColumn(7)]
-        public float Drug_clinic { get; set; }
+        [ColumnName(ColumnNames.DRUG_POPUL), LoadColumn(7)]
+        public float DrugPopul { get; set; }
 
 
-        [ColumnName("family_incom"), LoadColumn(8)]
-        public float Family_incom { get; set; }
+        [ColumnName(ColumnNames.NOT_FULL_FAMILIES), LoadColumn(8)]
+        public float NotFullFamilies { get; set; }
 
 
-        [ColumnName("child_homeless"), LoadColumn(9)]
-        public float Child_homeless { get; set; }
+        [ColumnName(ColumnNames.HOMELESS_CHILDREN_POPUL), LoadColumn(9)]
+        public float HomelessChildrensPopul { get; set; }
 
 
-        [ColumnName("quan_conviction"), LoadColumn(10)]
-        public float Quan_conviction { get; set; }
+        [ColumnName(ColumnNames.CONVICTION_POPUL), LoadColumn(10)]
+        public float ConvictionPopul { get; set; }
 
 
-        [ColumnName("quan_education"), LoadColumn(11)]
-        public float Quan_education { get; set; }
+        [ColumnName(ColumnNames.EDUCATED_POPUL), LoadColumn(11)]
+        public float EducatedPopul { get; set; }
 
 
-        [ColumnName("cof_crime"), LoadColumn(12)]
-        public float Cof_crime { get; set; }
+        [ColumnName(ColumnNames.CRIME_COF), LoadColumn(12)]
+        public float CrimeCOF { get; set; }
 
 
-        [ColumnName("quan_migrant"), LoadColumn(13)]
-        public float Quan_migrant { get; set; }
+        [ColumnName(ColumnNames.MIGRANT_POPUL), LoadColumn(13)]
+        public float MigrantPopul { get; set; }
 
 
-        [ColumnName("quan_gun"), LoadColumn(14)]
-        public float Quan_gun { get; set; }
+        [ColumnName(ColumnNames.GUN_COUNT), LoadColumn(14)]
+        public float GunCount { get; set; }
 
 
-        [ColumnName("crime_count"), LoadColumn(15)]
-        public float Crime_count { get; set; }
+        [ColumnName(ColumnNames.CRIMES_COUNT), LoadColumn(15)]
+        public float CrimesCount { get; set; }
 
 
     }
