@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Predictor
+﻿namespace Predictor
 {
     class ColumnNames
     {
-        public const string YEAR = "Year";
-        public const string QUARTER = "Quarter";
+        public const string DATE = "Date";
         public const string POPULATION = "Population";
         public const string MEN_POPUL = "MenPopul";
         public const string WOMEN_POPUL = "WomenPopul";
@@ -25,10 +18,15 @@ namespace Predictor
         public const string GUN_COUNT = "GunCount";
         public const string CRIMES_COUNT = "CrimesCount";
 
-        public static readonly string[] FACTORS = { YEAR, QUARTER, POPULATION, MEN_POPUL,
+        public static readonly string[] FACTORS = { DATE, POPULATION, MEN_POPUL,
                                                     WOMEN_POPUL, RATE_UNMPLOYMENT, PSYCH_POPUL,
                                                     DRUG_POPUL, NOT_FULL_FAMILIES, HOMELESS_CHILDREN_POPUL,
                                                     CONVICTION_POPUL, EDUCATED_POPUL, CRIME_COF,
                                                     MIGRANT_POPUL, GUN_COUNT };
+        public static readonly string[] ALL = { DATE, POPULATION, MEN_POPUL,
+                                                WOMEN_POPUL, RATE_UNMPLOYMENT, PSYCH_POPUL,
+                                                DRUG_POPUL, NOT_FULL_FAMILIES, HOMELESS_CHILDREN_POPUL,
+                                                CONVICTION_POPUL, EDUCATED_POPUL, CRIME_COF,
+                                                MIGRANT_POPUL, GUN_COUNT, CRIMES_COUNT};
     }
 }
