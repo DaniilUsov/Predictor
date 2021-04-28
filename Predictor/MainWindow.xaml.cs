@@ -12,10 +12,10 @@ namespace Predictor
     {
         private ModelInput sampleData = new ModelInput() 
         { 
-            Date = "01.01.2021", Population = 146.7f, MenPopul = 67.482f, WomenPopul = 79.218f,
-            RateUnemployment = 4.490805f, PsychPopul = 1728, DrugPopul = 2170.3f, 
-            NotFullFamilies = 0.349f, HomelessChildrensPopul = 0.00535f, ConvictionPopul = 0.0226f,
-            EducatedPopul = 0.393f, CrimeCOF = 0.216f, MigrantPopul = 250677, GunCount = 63
+            Date = "01.01.2021", MenCount = 67482000, WomenCount = 79218000,
+            UnemploymentCount = 4490805, PsychCount = 1728000, DrugCount = 2170300, 
+            NotFullFamilies = 0.349f, CrimeCOF = 0.216f, PoliceCount = 973845,
+            Mortality = 1679248, AverangeIncome = 56044
         };
         private MyPredictor predictor = new MyPredictor();
 
@@ -24,26 +24,23 @@ namespace Predictor
             InitializeComponent();
 
             DataTB.DataContext = sampleData;
-            PopulationTB.DataContext = sampleData;
             MenTB.DataContext = sampleData;
             WomenTB.DataContext = sampleData;
             UnempTB.DataContext = sampleData;
             PsychTB.DataContext = sampleData;
             DrugTB.DataContext = sampleData;
-            IncomTB.DataContext = sampleData;
-            ChildHomelessTB.DataContext = sampleData;
-            ConvintionTB.DataContext = sampleData;
-            EducationTB.DataContext = sampleData;
+            NotFullTB.DataContext = sampleData;
             CofCrimeTB.DataContext = sampleData;
-            MigrantTB.DataContext = sampleData;
-            GunTB.DataContext = sampleData;
+            PoliceTB.DataContext = sampleData;
+            MortalityTB.DataContext = sampleData;
+            IncomeTB.DataContext = sampleData;
 
             predictor.TryLoad();
 
             Chart.ChartAreas[0].AxisX.IntervalAutoMode = IntervalAutoMode.VariableCount;
             Chart.ChartAreas[0].AxisX.Title = "Учетный период";
             Chart.ChartAreas[0].AxisY.IntervalAutoMode = IntervalAutoMode.VariableCount;
-            Chart.ChartAreas[0].AxisY.Title = "Кол-во преступлений, тыс";
+            Chart.ChartAreas[0].AxisY.Title = "Кол-во преступлений";
             Chart.Series[0].Color = System.Drawing.Color.Red;
         }
 

@@ -24,25 +24,33 @@ namespace Predictor
 
         public void GenerateModel(string filePath)
         {
-            if (!(Loaded = File.Exists(filePath))) return;
+            try
+            {
+                if (!(Loaded = File.Exists(filePath))) return;
 
-            data = context.Data.LoadFromTextFile<ModelInput>(filePath, hasHeader: true, separatorChar: ';'); // Загрузка базы
-            // Переработка
-            var pipeline = context.Transforms.Categorical.OneHotEncoding(ColumnNames.DATE, ColumnNames.DATE)
-                            .Append(context.Transforms.Concatenate(FEATURES, ColumnNames.FACTORS))
-                            .Append(context.Transforms.NormalizeMinMax(FEATURES, FEATURES))
-                            .Append(context.Regression.Trainers.LbfgsPoissonRegression(ColumnNames.CRIMES_COUNT, FEATURES));
+                data = context.Data.LoadFromTextFile<ModelInput>(filePath, hasHeader: true, separatorChar: ';'); // Загрузка базы
+                                                                                                                 // Переработка
+                var pipeline = context.Transforms.Categorical.OneHotEncoding(ColumnNames.DATE, ColumnNames.DATE)
+                                .Append(context.Transforms.Concatenate(FEATURES, ColumnNames.FACTORS))
+                                .Append(context.Transforms.NormalizeMinMax(FEATURES, FEATURES))
+                                .Append(context.Regression.Trainers.LbfgsPoissonRegression(ColumnNames.CRIMES_COUNT, FEATURES));
 
-            // Создание модели
-            model = pipeline.Fit(data);
-            // Сохранение модели
-            context.Model.Save(model, data.Schema, MODEL_PATH);
+                // Создание модели
+                model = pipeline.Fit(data);
+                // Сохранение модели
+                context.Model.Save(model, data.Schema, MODEL_PATH);
 
-            engine = context.Model.CreatePredictionEngine<ModelInput, ModelOutput>(model);
+                engine = context.Model.CreatePredictionEngine<ModelInput, ModelOutput>(model);
 
-            System.Windows.Forms.MessageBox.Show("Обучено.\n" +
-                "Модель сохранена: " + MODEL_PATH + "\n" +
-                "Точность: " + GetAccuracy());
+                System.Windows.Forms.MessageBox.Show("Обучено.\n" +
+                    "Модель сохранена: " + MODEL_PATH + "\n" +
+                    "Точность: " + GetAccuracy());
+            }
+            catch (Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show(e.Message);
+                App.Current.MainWindow.Close();
+            }
         }
 
         public void UploadModel(string filePath)
@@ -72,7 +80,7 @@ namespace Predictor
             IDataView predictions = model.Transform(data);
             RegressionMetrics metrics = context.Regression.Evaluate(predictions, ColumnNames.CRIMES_COUNT);
 
-            return metrics.RSquared + "\n" + (metrics.RSquared * 100).ToString("0") + "%";
+            return metrics.RSquared.ToString();
         }
 
         public ModelOutput Predict(ModelInput inputData)

@@ -3,30 +3,29 @@
     class ColumnNames
     {
         public const string DATE = "Date";
-        public const string POPULATION = "Population";
-        public const string MEN_POPUL = "MenPopul";
-        public const string WOMEN_POPUL = "WomenPopul";
-        public const string RATE_UNMPLOYMENT = "RateUnemployment";
-        public const string PSYCH_POPUL = "PsychPopul";
-        public const string DRUG_POPUL = "DrugPopul";
+        public const string MEN_COUNT = "MenCount";
+        public const string WOMEN_COUNT = "WomenCount";
+        public const string UNMPLOYMENT_COUNT = "UnemploymentCount";
+        public const string PSYCH_COUNT = "PsychCount";
+        public const string DRUG_COUNT = "DrugCount";
         public const string NOT_FULL_FAMILIES = "NotFullFamilies";
-        public const string HOMELESS_CHILDREN_POPUL = "HomelessChildrensPopul";
-        public const string CONVICTION_POPUL = "ConvictionPopul";
-        public const string EDUCATED_POPUL = "EducatedPopul";
         public const string CRIME_COF = "CrimeCOF";
-        public const string MIGRANT_POPUL = "MigrantPopul";
-        public const string GUN_COUNT = "GunCount";
+        public const string POLICE_COUNT = "PoliceCount";
+        public const string MORTALITY = "Mortality";
+        public const string AVERANGE_INCOME = "AverangeIncome";
         public const string CRIMES_COUNT = "CrimesCount";
 
-        public static readonly string[] FACTORS = { DATE, POPULATION, MEN_POPUL,
-                                                    WOMEN_POPUL, RATE_UNMPLOYMENT, PSYCH_POPUL,
-                                                    DRUG_POPUL, NOT_FULL_FAMILIES, HOMELESS_CHILDREN_POPUL,
-                                                    CONVICTION_POPUL, EDUCATED_POPUL, CRIME_COF,
-                                                    MIGRANT_POPUL, GUN_COUNT };
-        public static readonly string[] ALL = { DATE, POPULATION, MEN_POPUL,
-                                                WOMEN_POPUL, RATE_UNMPLOYMENT, PSYCH_POPUL,
-                                                DRUG_POPUL, NOT_FULL_FAMILIES, HOMELESS_CHILDREN_POPUL,
-                                                CONVICTION_POPUL, EDUCATED_POPUL, CRIME_COF,
-                                                MIGRANT_POPUL, GUN_COUNT, CRIMES_COUNT};
+        public static readonly string[] FACTORS = 
+        { 
+            MEN_COUNT, WOMEN_COUNT, UNMPLOYMENT_COUNT,
+            PSYCH_COUNT, DRUG_COUNT, NOT_FULL_FAMILIES, CRIME_COF,
+            POLICE_COUNT, MORTALITY, AVERANGE_INCOME
+        };
+        public static readonly string[] ALL =
+        { 
+            DATE, MEN_COUNT, WOMEN_COUNT, UNMPLOYMENT_COUNT,
+            PSYCH_COUNT, DRUG_COUNT, NOT_FULL_FAMILIES, CRIME_COF,
+            POLICE_COUNT, MORTALITY, AVERANGE_INCOME
+        };
     }
 }

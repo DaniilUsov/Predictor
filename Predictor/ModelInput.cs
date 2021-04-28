@@ -8,46 +8,37 @@ namespace Predictor
         [ColumnName(ColumnNames.DATE), LoadColumn(0)]
         public string Date { get; set; }
 
-        [ColumnName(ColumnNames.POPULATION), LoadColumn(1)]
-        public float Population { get; set; }
+        [ColumnName(ColumnNames.MEN_COUNT), LoadColumn(1)]
+        public float MenCount { get; set; }
 
-        [ColumnName(ColumnNames.MEN_POPUL), LoadColumn(2)]
-        public float MenPopul { get; set; }
+        [ColumnName(ColumnNames.WOMEN_COUNT), LoadColumn(2)]
+        public float WomenCount { get; set; }
 
-        [ColumnName(ColumnNames.WOMEN_POPUL), LoadColumn(3)]
-        public float WomenPopul { get; set; }
+        [ColumnName(ColumnNames.UNMPLOYMENT_COUNT), LoadColumn(3)]
+        public float UnemploymentCount { get; set; }
 
-        [ColumnName(ColumnNames.RATE_UNMPLOYMENT), LoadColumn(4)]
-        public float RateUnemployment { get; set; }
+        [ColumnName(ColumnNames.PSYCH_COUNT), LoadColumn(4)]
+        public float PsychCount { get; set; }
 
-        [ColumnName(ColumnNames.PSYCH_POPUL), LoadColumn(5)]
-        public float PsychPopul { get; set; }
+        [ColumnName(ColumnNames.DRUG_COUNT), LoadColumn(5)]
+        public float DrugCount { get; set; }
 
-        [ColumnName(ColumnNames.DRUG_POPUL), LoadColumn(6)]
-        public float DrugPopul { get; set; }
-
-        [ColumnName(ColumnNames.NOT_FULL_FAMILIES), LoadColumn(7)]
+        [ColumnName(ColumnNames.NOT_FULL_FAMILIES), LoadColumn(6)]
         public float NotFullFamilies { get; set; }
 
-        [ColumnName(ColumnNames.HOMELESS_CHILDREN_POPUL), LoadColumn(8)]
-        public float HomelessChildrensPopul { get; set; }
-
-        [ColumnName(ColumnNames.CONVICTION_POPUL), LoadColumn(9)]
-        public float ConvictionPopul { get; set; }
-
-        [ColumnName(ColumnNames.EDUCATED_POPUL), LoadColumn(10)]
-        public float EducatedPopul { get; set; }
-
-        [ColumnName(ColumnNames.CRIME_COF), LoadColumn(11)]
+        [ColumnName(ColumnNames.CRIME_COF), LoadColumn(7)]
         public float CrimeCOF { get; set; }
 
-        [ColumnName(ColumnNames.MIGRANT_POPUL), LoadColumn(12)]
-        public float MigrantPopul { get; set; }
+        [ColumnName(ColumnNames.POLICE_COUNT), LoadColumn(8)]
+        public float PoliceCount { get; set; }
 
-        [ColumnName(ColumnNames.GUN_COUNT), LoadColumn(13)]
-        public float GunCount { get; set; }
+        [ColumnName(ColumnNames.MORTALITY), LoadColumn(9)]
+        public float Mortality { get; set; }
 
-        [ColumnName(ColumnNames.CRIMES_COUNT), LoadColumn(14)]
+        [ColumnName(ColumnNames.AVERANGE_INCOME), LoadColumn(10)]
+        public float AverangeIncome { get; set; }
+
+        [ColumnName(ColumnNames.CRIMES_COUNT), LoadColumn(11)]
         public float CrimesCount { get; set; }
     }
 }

@@ -6,14 +6,21 @@
         xmlns:local="clr-namespace:Predictor"
         xmlns:dvc="clr-namespace:System.Windows.Forms.DataVisualization.Charting;assembly=System.Windows.Forms.DataVisualization"
         mc:Ignorable="d"
-        Title="MainWindow" WindowState="Maximized" WindowStartupLocation="CenterScreen" d:DesignWidth="1200" d:DesignHeight="791.2" MinWidth="1200" MinHeight="800">
-    <Grid>
+        Title="MainWindow" WindowState="Maximized" WindowStartupLocation="CenterScreen" d:DesignWidth="1200" d:DesignHeight="791.2" MinWidth="800" MinHeight="800">
+    <Window.Resources>
+        <SolidColorBrush x:Key="Second" Color="#FFDBEBFA"/>
+        <SolidColorBrush x:Key="Main" Color="#FFB8DCFF"/>
+        <Style TargetType="Label">
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+    </Window.Resources>
+    <Grid Background="{DynamicResource Main}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="LoadButton" Content="Загрузить базу" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="96" Click="LoadButton_Click" Height="30"/>
-        <TextBlock x:Name="CrimeTB" HorizontalAlignment="Left" Margin="203,0,0,10.4" TextWrapping="Wrap" Width="120" Height="30" VerticalAlignment="Bottom"/>
-        <Label Content="Кол-во преступлений:" HorizontalAlignment="Left" Margin="27,0,0,10.4" Height="30" VerticalAlignment="Bottom"/>
+        <Button x:Name="LoadButton" Content="Загрузить базу" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" Click="LoadButton_Click" Height="40" Background="{DynamicResource Second}" FontWeight="Bold"/>
+        <TextBlock x:Name="CrimeTB" HorizontalAlignment="Left" Margin="156,0,0,10.4" TextWrapping="Wrap" Width="167" Height="30" VerticalAlignment="Bottom" FontSize="16" TextAlignment="Center" FontWeight="Bold"/>
+        <Label Content="Кол-во преступлений:" HorizontalAlignment="Left" Margin="10,0,0,10.4" Height="30" VerticalAlignment="Bottom"/>
         <Grid Margin="341,10,9.6,9.4">
             <WindowsFormsHost>
                 <dvc:Chart x:Name="Chart" Text="Преступность">
@@ -26,11 +33,8 @@
                 </dvc:Chart>
             </WindowsFormsHost>
         </Grid>
-        <Grid Margin="12,66,0,0" HorizontalAlignment="Left" Width="311" VerticalAlignment="Top">
+        <Grid Margin="10,76,0,0" HorizontalAlignment="Left" Width="313" VerticalAlignment="Top" Background="{DynamicResource Second}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -47,37 +51,34 @@
                 <ColumnDefinition x:Name="Фактор" Width="Auto"/>
                 <ColumnDefinition x:Name="Значение"/>
             </Grid.ColumnDefinitions>
-            <Label Content="Кол-во мужчин, млн" Grid.Row="2"/>
-            <Label Content="Население, млн" Grid.Row="1"/>
+            
             <Label Content="Учетный период"/>
-            <Label Content="Кол-во женщин, млн" Grid.Row="3"/>
-            <Label Content="Уровень безработицы,&#xA;млн" Grid.Row="4"/>
-            <Label Content="Кол-во состоящих на&#xA;учете в нарко диспансере, тыс" Grid.Row="6"/>
-            <Label Content="Процент неполных семей" Grid.Row="7"/>
-            <Label Content="Процент беспризорных&#xA;детей" Grid.Row="8"/>
-            <Label Content="Процент людей с&#xA;судимостью" Grid.Row="9"/>
-            <Label Content="Процент людей с&#xA;высшим образованием" Grid.Row="10"/>
-            <Label Content="Коэф. раскрываемости&#xA;преступлений" Grid.Row="11"/>
-            <Label Content="Кол-во мигрантов, чел" Grid.Row="12"/>
-            <Label Content="Кол-во зарегистрированного&#xA;оружия, млн" Grid.Row="13"/>
-            <Label Content="Кол-во состоящих на&#xA;учете в псих диспансере, тыс" Margin="0" Grid.Row="5"/>
-            <TextBox x:Name="GunTB" TextWrapping="Wrap" Text="{Binding GunCount, Mode=TwoWay}" Grid.Column="1" Grid.Row="13"/>
-            <TextBox x:Name="MigrantTB" TextWrapping="Wrap" Text="{Binding MigrantPopul, Mode=TwoWay}" Grid.Column="1" Grid.Row="12"/>
-            <TextBox x:Name="CofCrimeTB" TextWrapping="Wrap" Text="{Binding CrimeCOF, Mode=TwoWay}" Grid.Column="1" Grid.Row="11"/>
-            <TextBox x:Name="EducationTB" TextWrapping="Wrap" Text="{Binding EducatedPopul, Mode=TwoWay}" Grid.Column="1" Grid.Row="10"/>
-            <TextBox x:Name="ConvintionTB" TextWrapping="Wrap" Text="{Binding ConvictionPopul, Mode=TwoWay}" Grid.Column="1" Grid.Row="9"/>
-            <TextBox x:Name="ChildHomelessTB" TextWrapping="Wrap" Text="{Binding HomelessChildrensPopul, Mode=TwoWay}" Grid.Column="1" Grid.Row="8"/>
-            <TextBox x:Name="IncomTB" TextWrapping="Wrap" Text="{Binding NotFullFamilies, Mode=TwoWay}" Grid.Column="1" Grid.Row="7"/>
-            <TextBox x:Name="WomenTB" TextWrapping="Wrap" Text="{Binding WomenPopul, Mode=TwoWay}" Grid.Column="1" Grid.Row="3"/>
-            <TextBox x:Name="DrugTB" TextWrapping="Wrap" Text="{Binding DrugPopul, Mode=TwoWay}" Grid.Column="1" Grid.Row="6"/>
-            <TextBox x:Name="UnempTB" TextWrapping="Wrap" Text="{Binding RateUnemployment, Mode=TwoWay}" Grid.Column="1" Grid.Row="4"/>
-            <TextBox x:Name="MenTB" TextWrapping="Wrap" Text="{Binding MenPopul, Mode=TwoWay}" Grid.Column="1" Grid.Row="2"/>
-            <TextBox x:Name="PopulationTB" TextWrapping="Wrap" Text="{Binding Population, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"/>
+            <Label Content="Кол-во мужчин" Grid.Row="1"/>
+            <Label Content="Кол-во женщин" Grid.Row="2"/>
+            <Label Content="Кол-во безработных" Grid.Row="3"/>
+            <Label Content="Кол-во состоящих на&#xA;учете в псих диспансере" Margin="0" Grid.Row="4"/>
+            <Label Content="Кол-во состоящих на&#xA;учете в нарко диспансере" Grid.Row="5"/>
+            <Label Content="Доля неполных семей" Grid.Row="6"/>
+            <Label Content="Коэф. раскрываемости&#xA;преступлений" Grid.Row="7"/>
+            <Label Content="Кол-во сотрудников" Grid.Row="8"/>
+            <Label Content="Смертность" Grid.Row="9"/>
+            <Label Content="Средняя заработная плата" Grid.Row="10"/>
+            
             <TextBox x:Name="DataTB" TextWrapping="Wrap" Text="{Binding Date, Mode=TwoWay}" Grid.Row="0" Grid.Column="1"/>
-            <TextBox x:Name="PsychTB" TextWrapping="Wrap" Text="{Binding PsychPopul, Mode=TwoWay}" Grid.Column="1" Grid.Row="5"/>
+            <TextBox x:Name="MenTB" TextWrapping="Wrap" Text="{Binding MenCount, Mode=TwoWay}" Grid.Column="1" Grid.Row="1"/>
+            <TextBox x:Name="WomenTB" TextWrapping="Wrap" Text="{Binding WomenCount, Mode=TwoWay}" Grid.Column="1" Grid.Row="2"/>
+            <TextBox x:Name="UnempTB" TextWrapping="Wrap" Text="{Binding UnemploymentCount, Mode=TwoWay}" Grid.Column="1" Grid.Row="3"/>
+            <TextBox x:Name="PsychTB" TextWrapping="Wrap" Text="{Binding PsychCount, Mode=TwoWay}" Grid.Column="1" Grid.Row="4"/>
+            <TextBox x:Name="DrugTB" TextWrapping="Wrap" Text="{Binding DrugCount, Mode=TwoWay}" Grid.Column="1" Grid.Row="5"/>
+            <TextBox x:Name="NotFullTB" TextWrapping="Wrap" Text="{Binding NotFullFamilies, Mode=TwoWay}" Grid.Column="1" Grid.Row="6"/>
+            <TextBox x:Name="CofCrimeTB" TextWrapping="Wrap" Text="{Binding CrimeCOF, Mode=TwoWay}" Grid.Column="1" Grid.Row="7"/>
+            <TextBox x:Name="PoliceTB" TextWrapping="Wrap" Text="{Binding PoliceCount, Mode=TwoWay}" Grid.Column="1" Grid.Row="8"/>
+            <TextBox x:Name="MortalityTB" TextWrapping="Wrap" Text="{Binding Mortality, Mode=TwoWay}" Grid.Column="1" Grid.Row="9"/>
+            <TextBox x:Name="IncomeTB" TextWrapping="Wrap" Text="{Binding AverangeIncome, Mode=TwoWay}" Grid.Column="1" Grid.Row="10"/>
+
         </Grid>
-        <Button x:Name="PredictButton" Content="Расчитать" HorizontalAlignment="Left" Margin="111,0,0,45.4" Width="100" Height="38" VerticalAlignment="Bottom" Click="PredictButton_Click"/>
-        <TextBlock x:Name="PathTB" HorizontalAlignment="Left" Margin="111,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="30" Width="225"/>
-        <TextBlock HorizontalAlignment="Left" Margin="12,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Введите значения"/><Run Text=":"/></TextBlock>
+        <Button x:Name="PredictButton" Content="Расчитать" HorizontalAlignment="Left" Margin="111,0,0,45.4" Width="100" Height="40" VerticalAlignment="Bottom" Click="PredictButton_Click" Background="{DynamicResource Second}" FontWeight="Bold"/>
+        <TextBlock x:Name="PathTB" HorizontalAlignment="Left" Margin="115,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="40" Width="221" FontStyle="Italic"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Введите значения"/><Run Text=":"/></TextBlock>
     </Grid>
 </Window>
