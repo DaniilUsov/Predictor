@@ -20,7 +20,7 @@ namespace Predictor
         public IDataView Data => data;
         public bool Loaded { get; set; }
 
-        public static string MODEL_PATH = Environment.CurrentDirectory + "\\Model.zip";
+        public static string MODEL_PATH = Environment.CurrentDirectory + "\\Resources\\Model.zip";
 
         public void GenerateModel(string filePath)
         {
@@ -43,8 +43,7 @@ namespace Predictor
                 engine = context.Model.CreatePredictionEngine<ModelInput, ModelOutput>(model);
 
                 System.Windows.Forms.MessageBox.Show("Обучено.\n" +
-                    "Модель сохранена: " + MODEL_PATH + "\n" +
-                    "Точность: " + GetAccuracy());
+                    "Модель сохранена: " + MODEL_PATH + "\n");
             }
             catch (Exception e)
             {

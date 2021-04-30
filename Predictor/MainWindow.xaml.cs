@@ -12,10 +12,10 @@ namespace Predictor
     {
         private ModelInput sampleData = new ModelInput() 
         { 
-            Date = "01.01.2021", MenCount = 67482000, WomenCount = 79218000,
-            UnemploymentCount = 4490805, PsychCount = 1728000, DrugCount = 2170300, 
-            NotFullFamilies = 0.349f, CrimeCOF = 0.216f, PoliceCount = 973845,
-            Mortality = 1679248, AverangeIncome = 56044
+            Date = DateTime.Parse("30.04.2021"), MenCount = 67482, WomenCount = 79218,
+            UnemploymentCount = 4490.805f, PsychCount = 1728, DrugCount = 2170.3f, 
+            NotFullFamilies = 0.349f, CrimeCOF = 0.216f, PoliceCount = 973.845f,
+            Mortality = 1679.248f, AverangeIncome = 56044
         };
         private MyPredictor predictor = new MyPredictor();
 
@@ -37,11 +37,26 @@ namespace Predictor
 
             predictor.TryLoad();
 
-            Chart.ChartAreas[0].AxisX.IntervalAutoMode = IntervalAutoMode.VariableCount;
-            Chart.ChartAreas[0].AxisX.Title = "Учетный период";
-            Chart.ChartAreas[0].AxisY.IntervalAutoMode = IntervalAutoMode.VariableCount;
-            Chart.ChartAreas[0].AxisY.Title = "Кол-во преступлений";
-            Chart.Series[0].Color = System.Drawing.Color.Red;
+            CrimeChart.ChartAreas[0].AxisX.IntervalAutoMode = IntervalAutoMode.VariableCount;
+            CrimeChart.ChartAreas[0].AxisX.Title = "Учетный период";
+            CrimeChart.ChartAreas[0].AxisX.LineColor = System.Drawing.Color.White;
+            CrimeChart.ChartAreas[0].AxisX.TitleForeColor = System.Drawing.Color.White;
+            CrimeChart.ChartAreas[0].AxisX.InterlacedColor = System.Drawing.Color.White;
+            CrimeChart.ChartAreas[0].AxisX.MajorGrid.LineColor = System.Drawing.Color.Gray;
+            CrimeChart.ChartAreas[0].AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
+            CrimeChart.ChartAreas[0].AxisX.MajorTickMark.LineColor = System.Drawing.Color.White;
+
+            CrimeChart.ChartAreas[0].AxisY.IntervalAutoMode = IntervalAutoMode.VariableCount;
+            CrimeChart.ChartAreas[0].AxisY.Title = "Кол-во преступлений";
+            CrimeChart.ChartAreas[0].AxisY.LineColor = System.Drawing.Color.White;
+            CrimeChart.ChartAreas[0].AxisY.TitleForeColor = System.Drawing.Color.White;
+            CrimeChart.ChartAreas[0].AxisY.InterlacedColor = System.Drawing.Color.White;
+            CrimeChart.ChartAreas[0].AxisY.MajorGrid.LineColor = System.Drawing.Color.Gray;
+            CrimeChart.ChartAreas[0].AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
+            CrimeChart.ChartAreas[0].AxisY.MajorTickMark.LineColor = System.Drawing.Color.White;
+
+            CrimeChart.Series[0].Color = System.Drawing.Color.Red;
+            CrimeChart.Series[0].LabelForeColor = System.Drawing.Color.White;
         }
 
         private void LoadButton_Click(object sender, RoutedEventArgs e)
@@ -57,15 +72,15 @@ namespace Predictor
             {
                 predictor.GenerateModel(ofd.FileName);
                 // Построение графика
-                string[] s = predictor.Data.GetColumn<string>(ColumnNames.DATE).ToArray();
-                DateTime[] axisXData = new DateTime[s.Length];
-                for (int i = 0; i < s.Length; i++)
-                {
-                    axisXData[i] = DateTime.Parse(s[i]);
-                }
+                DateTime[] axisXData = predictor.Data.GetColumn<DateTime>(ColumnNames.DATE).ToArray();
+                //DateTime[] axisXData = new DateTime[s.Length];
+                //for (int i = 0; i < s.Length; i++)
+                //{
+                //    axisXData[i] = DateTime.Parse(s[i]);
+                //}
                 
                 float[] axisYData = predictor.Data.GetColumn<float>(ColumnNames.CRIMES_COUNT).ToArray();
-                Chart.Series[0].Points.DataBindXY(axisXData, axisYData);
+                CrimeChart.Series[0].Points.DataBindXY(axisXData, axisYData);
                 UpdateChart();
             }
             else if (ofd.FileName.EndsWith(".zip"))
@@ -76,16 +91,16 @@ namespace Predictor
 
         private void PredictButton_Click(object sender, RoutedEventArgs e)
         {
-            if (predictor.Loaded) CrimeTB.Text = (sampleData.CrimesCount = predictor.Predict(sampleData).Score).ToString("0.000");
+            if (predictor.Loaded) CrimeTB.Text = (sampleData.CrimesCount = predictor.Predict(sampleData).CrimesCount).ToString("0.000");
             else System.Windows.Forms.MessageBox.Show("Отсутствует модель. Требуется обучение по основе базе данных");
-            Chart.Series[0].Points.AddXY(DateTime.Parse(sampleData.Date), Math.Round(sampleData.CrimesCount, 3));
+            CrimeChart.Series[0].Points.AddXY(sampleData.Date, Math.Round(sampleData.CrimesCount, 3));
             UpdateChart();
         }
 
         private void UpdateChart()
         {
-            Chart.Series[0].Sort(PointSortOrder.Ascending, "X");
-            foreach (DataPoint dp in Chart.Series[0].Points)
+            CrimeChart.Series[0].Sort(PointSortOrder.Ascending, "X");
+            foreach (DataPoint dp in CrimeChart.Series[0].Points)
             {
                 dp.ToolTip = DateTime.FromOADate(dp.XValue).ToString("dd.MM.yyyy");
             }

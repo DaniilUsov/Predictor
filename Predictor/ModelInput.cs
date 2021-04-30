@@ -6,7 +6,7 @@ namespace Predictor
     public class ModelInput
     {
         [ColumnName(ColumnNames.DATE), LoadColumn(0)]
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
 
         [ColumnName(ColumnNames.MEN_COUNT), LoadColumn(1)]
         public float MenCount { get; set; }

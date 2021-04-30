@@ -1,7 +1,10 @@
+using Microsoft.ML.Data;
+
 namespace Predictor
 {
     public class ModelOutput
     {
-        public float Score { get; set; }
+        [ColumnName("Score")]
+        public float CrimesCount { get; set; }
     }
 }

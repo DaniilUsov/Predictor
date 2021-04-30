@@ -5,12 +5,12 @@ using System.Windows;
 // Общие сведения об этой сборке предоставляются следующим набором
 // набор атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
-[assembly: AssemblyTitle("Predictor")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("СПАКС")]
+[assembly: AssemblyDescription("Система предиктивной аналитики криминальных событий")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Predictor")]
-[assembly: AssemblyCopyright("Copyright ©  2021")]
+[assembly: AssemblyCompany("КРДУ МВД РФ")]
+[assembly: AssemblyProduct("СПАКС")]
+[assembly: AssemblyCopyright("Copyright © LamerTeam, 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
